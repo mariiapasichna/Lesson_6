@@ -131,7 +131,11 @@ public class MyHashMap implements MyMap {
         if (size > threshold) {
             resize();
         }
-        return putInternal(key, value);
+        String result = putInternal(key, value);
+        if (result==null){
+            size++;
+        }
+        return result;
     }
 
     /**
@@ -197,8 +201,7 @@ public class MyHashMap implements MyMap {
             table[index] = newEntry;
             newEntry.next = tmp;
         }
-        size++;
-        return newEntry.value;
+        return null;
     }
 
     private void resize() {
