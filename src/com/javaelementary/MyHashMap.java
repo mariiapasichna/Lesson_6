@@ -107,14 +107,21 @@ public class MyHashMap implements MyMap {
     public String remove(String key) {
         int index = Math.abs(key.hashCode()) % table.length;
         Entry tmpEntry = table[index];
-        while (tmpEntry != null) {
-            if (tmpEntry.key.equals(key)) {
-                String result = tmpEntry.value;
-                table[index] = tmpEntry.next;
-                size--;
-                return result;
+        if (tmpEntry.key.equals(key)){
+            String result = tmpEntry.value;
+            table[index] = tmpEntry.next;
+            size--;
+            return result;
+        } else {
+            while (tmpEntry != null) {
+                if (tmpEntry.key.equals(key)) {
+                    String result = tmpEntry.value;
+                    table[index].next = tmpEntry.next;
+                    size--;
+                    return result;
+                }
+                tmpEntry = tmpEntry.next;
             }
-            tmpEntry = tmpEntry.next;
         }
         return null;
     }
