@@ -113,14 +113,16 @@ public class MyHashMap implements MyMap {
             size--;
             return result;
         } else {
-            while (tmpEntry != null) {
-                if (tmpEntry.key.equals(key)) {
-                    String result = tmpEntry.value;
-                    table[index].next = tmpEntry.next;
+            Entry removeEntry = table[index].next;
+            while (removeEntry != null) {
+                if (removeEntry.key.equals(key)) {
+                    String result = removeEntry.value;
+                    tmpEntry.next = removeEntry.next;
                     size--;
                     return result;
                 }
                 tmpEntry = tmpEntry.next;
+                removeEntry = removeEntry.next;
             }
         }
         return null;
